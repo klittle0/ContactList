@@ -7,6 +7,22 @@
  * @version: 2022-2023
  */
 
-public class Student {
-    // TODO: Modify and complete this class
+public class Student extends Person{
+    private int grade;
+
+    // Constructor
+    public Student(String firstName, String lastName, String phoneNumber, int grade){
+        super(firstName, lastName, phoneNumber);
+        this.grade = grade;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    @Override
+    // To-string method
+    public String toString(){
+        return super.toString() + " Grade: " + grade;
+    }
 }
