@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * Created for Menlo School CS2
  *
- * @author: Ms. Namasivayam & Mr. Blick
+ * @author: Ms. Namasivayam, Mr. Blick, & Kate Little
  * @version: 2022-2023
  */
 
@@ -125,7 +125,9 @@ public class ContactList
         }
     }
 
-    // Uses modified for loop to search list by first name
+    /**
+     * Uses modified for loop to search list by first name
+     */
     public Person searchByFirstName(String firstName){
         for (Person each: contacts){
             if (each.getFirstName().equals(firstName)){
@@ -135,7 +137,9 @@ public class ContactList
         return null;
     }
 
-    // Uses modified for loop to search list by last name
+    /**
+     * Uses modified for loop to search list by last name
+     */
     public Person searchByLastName(String lastName){
         for (Person each: contacts){
             if (each.getLastName().equals(lastName)){
@@ -144,7 +148,9 @@ public class ContactList
         }
         return null;
     }
-    // Uses modified for loop to search list by phone number
+    /**
+     * Uses modified for loop to search list by phone number
+     */
     public Person searchByPhoneNumber(String phoneNumber){
         for (Person each: contacts){
             if (each.getPhoneNumber().equals(phoneNumber)){
@@ -165,11 +171,25 @@ public class ContactList
     }
 
     /**
+     * If the name was found in the list, program prints it.
+     * Otherwise, it says that person was not found
+     */
+    public void present(Person found, String firstName){
+        if (found != null){
+            System.out.println(found);
+        }
+        else{
+            System.out.println(firstName + " is not in the list.");
+        }
+    }
+
+    /**
      * Loops providing menu options to the user
      * until the user exits
      */
     public void run() {
         int input = -1;
+        // Continues prompting user for input until they enter 0
         while (input != 0){
             Scanner s = new Scanner(System.in);
             System.out.println("Welcome to your Contacts List");
@@ -195,32 +215,29 @@ public class ContactList
                 listStudents();
             }
             if (input == 6){
+                s.nextLine();
                 System.out.println("Enter a first name: ");
                 String firstName = s.nextLine();
-                s.nextLine();
-                // Could create an error. make sure it actually prints. If so, change input 7 &8 to look like this
-                if (!searchByFirstName(firstName).equals(null)){
-                    searchByFirstName(firstName);
-                }
-                else{
-                    System.out.println(firstName + " is not in the list.");
-                }
+                Person found = searchByFirstName(firstName);
+                present(found, firstName);
             }
             if (input == 7){
+                s.nextLine();
                 System.out.println("Enter a last name: ");
                 String lastName = s.nextLine();
-                s.nextLine();
-                searchByLastName(lastName);
+                Person found = searchByLastName(lastName);
+                present(found, lastName);
             }
             if (input == 8){
+                s.nextLine();
                 System.out.println("Enter a phone number: ");
                 String phoneNumber = s.nextLine();
-                s.nextLine();
-                searchByPhoneNumber(phoneNumber);
+                Person found = searchByPhoneNumber(phoneNumber);
+                // If the name was found in the list, program prints it. Otherwise, says that person was not found
+                present(found, phoneNumber);
             }
         }
     }
-
 
     public static void main(String[] args)
     {
