@@ -14,6 +14,6 @@ public class Worker extends Person{
     @Override
     // To-string method
     public String toString(){
-        return super.toString() + jobTitle;
+        return super.toString() + " " + jobTitle;
     }
 }

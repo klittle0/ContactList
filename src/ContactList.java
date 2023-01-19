@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.scanner;
+import java.util.Scanner;
+
 /**
  * A class that stores subclasses of Person as a contact list.
  * The user is presented with a menu of options and may add, sort,
@@ -13,11 +14,11 @@ import java.util.scanner;
 
 public class ContactList
 {
-    private ArrayList<Person> contacts = new ArrayList<Person>();
+    private ArrayList<Person> contacts;
 
     // Constructor
     public ContactList(){
-
+        contacts = new ArrayList<>();
     }
 
     public void printMenuOptions() {
@@ -39,16 +40,38 @@ public class ContactList
      */
     public void addContact() {
         Scanner s = new Scanner(System.in);
-        System.out.println("Who would you like to add to the contact list?");
-        Person addition = nextLine();
-        contacts.add(addition);
+        System.out.println("Select a type of contact to add: ");
+        System.out.println("1. Student \n 2. Worker");
+        int type = s.nextInt();
+        s.nextLine();
+        System.out.println("Please fill in the following information.");
+        System.out.println("First name:");
+        String firstName = s.nextLine();
+        System.out.println("Last name:");
+        String lastName = s.nextLine();
+        System.out.println("Phone number:");
+        String phoneNumber = s.nextLine();
+        // If user wants to create a new student:
+        if (type == 1){
+            System.out.println("Grade:");
+            int grade = s.nextInt();
+            contacts.add(new Student(firstName, lastName, phoneNumber, grade));
+        }
+        // If user wants to create a new worker:
+        else if (type == 2){
+            System.out.println("Job title: ");
+            String jobTitle = s.nextLine();
+            contacts.add(new Worker(firstName, lastName, phoneNumber, jobTitle));
+        }
     }
 
     /**
      * Loops through and prints all contacts
      */
     public void printContacts() {
-        // TODO: Complete the printContacts method
+        for (Person each: contacts){
+            System.out.println(each);
+        }
     }
 
     /**
@@ -57,20 +80,88 @@ public class ContactList
      * @param sortBy: 0=firstName, 1=lastName, 2=phoneNumber
      */
     public void sort(int sortBy) {
-        // TODO: Complete the sort method
+        // Sorts by first name
+        int n = contacts.size();
+        if (sortBy == 0){
+            for (int pass = 1; pass < n; pass++){
+                for (int comp = 0; comp < n - pass; comp++){
+                    // If the first string is later in the alphabet than second String, switch order
+                    if (contacts.get(comp).getFirstName().compareTo(contacts.get(comp + 1).getFirstName()) > 0){
+                        Person temp = contacts.get(comp);
+                        contacts.set(comp, contacts.get(comp + 1));
+                        contacts.set(comp + 1, temp);
+                    }
+                }
+
+            }
+        }
+        // Sorts by last name
+        else if (sortBy == 1){
+            for (int pass = 1; pass < n; pass++){
+                for (int comp = 0; comp < n - pass; comp++){
+                    // If the first string is later in the alphabet than second String, switch order
+                    if (contacts.get(comp).getLastName().compareTo(contacts.get(comp + 1).getLastName()) > 0){
+                        Person temp = contacts.get(comp);
+                        contacts.set(comp, contacts.get(comp + 1));
+                        contacts.set(comp + 1, temp);
+                    }
+                }
+            }
+
+        }
+        // Sorts by phone number
+        else if (sortBy == 2){
+            for (int pass = 1; pass < n; pass++){
+                for (int comp = 0; comp < n - pass; comp++){
+                    // If the first string is later in the alphabet than second String, switch order
+                    if (contacts.get(comp).getPhoneNumber().compareTo(contacts.get(comp + 1).getPhoneNumber()) > 0){
+                        Person temp = contacts.get(comp);
+                        contacts.set(comp, contacts.get(comp + 1));
+                        contacts.set(comp + 1, temp);
+                    }
+                }
+
+            }
+        }
     }
 
-    // TODO: Write searchByFirstName
+    // Uses modified for loop to search list by first name
+    public Person searchByFirstName(String firstName){
+        for (Person each: contacts){
+            if (each.getFirstName().equals(firstName)){
+                return each;
+            }
+        }
+        return null;
+    }
 
-    // TODO: Write searchByLastName
-
-    // TODO: Write searchByPhoneNumber
-
+    // Uses modified for loop to search list by last name
+    public Person searchByLastName(String lastName){
+        for (Person each: contacts){
+            if (each.getLastName().equals(lastName)){
+                return each;
+            }
+        }
+        return null;
+    }
+    // Uses modified for loop to search list by phone number
+    public Person searchByPhoneNumber(String phoneNumber){
+        for (Person each: contacts){
+            if (each.getPhoneNumber().equals(phoneNumber)){
+                return each;
+            }
+        }
+        return null;
+    }
     /**
      * Lists just the Student objects in the Contact List
      */
     public void listStudents() {
-        // TODO: Complete the listStudents method
+        for (Person each: contacts){
+            if (each instanceof Student){
+                System.out.println(each);
+            }
+        }
     }
 
     /**
@@ -78,11 +169,56 @@ public class ContactList
      * until the user exits
      */
     public void run() {
-        System.out.println("Welcome to your Contacts List");
-        System.out.println("Please pick from the following menu options");
-        printMenuOptions();
-
-        // TODO: Complete the run method
+        int input = -1;
+        while (input != 0){
+            Scanner s = new Scanner(System.in);
+            System.out.println("Welcome to your Contacts List");
+            System.out.println("Please pick from the following menu options");
+            printMenuOptions();
+            input = s.nextInt();
+            if (input == 1){
+                addContact();
+            }
+            if (input == 2){
+                sort(0);
+                printContacts();
+            }
+            if (input == 3){
+                sort(1);
+                printContacts();
+            }
+            if (input == 4){
+                sort(2);
+                printContacts();
+            }
+            if (input == 5){
+                listStudents();
+            }
+            if (input == 6){
+                System.out.println("Enter a first name: ");
+                String firstName = s.nextLine();
+                s.nextLine();
+                // Could create an error. make sure it actually prints. If so, change input 7 &8 to look like this
+                if (!searchByFirstName(firstName).equals(null)){
+                    searchByFirstName(firstName);
+                }
+                else{
+                    System.out.println(firstName + " is not in the list.");
+                }
+            }
+            if (input == 7){
+                System.out.println("Enter a last name: ");
+                String lastName = s.nextLine();
+                s.nextLine();
+                searchByLastName(lastName);
+            }
+            if (input == 8){
+                System.out.println("Enter a phone number: ");
+                String phoneNumber = s.nextLine();
+                s.nextLine();
+                searchByPhoneNumber(phoneNumber);
+            }
+        }
     }
 
 
