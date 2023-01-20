@@ -3,7 +3,7 @@
  *
  * Created for Menlo School CS2
  *
- * @author: Ms. Namasivayam & Mr. Blick
+ * @author: Ms. Namasivayam, Mr. Blick, & Kate Little
  * @version: 2022-2023
  */
 
@@ -29,6 +29,7 @@ public class Person {
         return phoneNumber;
     }
 
+    // To-string method prints firstName lastName — phoneNumber
     public String toString(){
         return firstName + " " + lastName + " — " + phoneNumber;
     }

@@ -41,7 +41,7 @@ public class ContactList
     public void addContact() {
         Scanner s = new Scanner(System.in);
         System.out.println("Select a type of contact to add: ");
-        System.out.println("1. Student \n 2. Worker");
+        System.out.println("1. Student \n2. Worker");
         int type = s.nextInt();
         s.nextLine();
         System.out.println("Please fill in the following information.");
@@ -169,17 +169,16 @@ public class ContactList
             }
         }
     }
-
     /**
      * If the name was found in the list, program prints it.
      * Otherwise, it says that person was not found
      */
-    public void present(Person found, String firstName){
+    public void present(Person found, String characteristic){
         if (found != null){
             System.out.println(found);
         }
         else{
-            System.out.println(firstName + " is not in the list.");
+            System.out.println(characteristic + " is not in the list.");
         }
     }
 
@@ -233,7 +232,6 @@ public class ContactList
                 System.out.println("Enter a phone number: ");
                 String phoneNumber = s.nextLine();
                 Person found = searchByPhoneNumber(phoneNumber);
-                // If the name was found in the list, program prints it. Otherwise, says that person was not found
                 present(found, phoneNumber);
             }
         }

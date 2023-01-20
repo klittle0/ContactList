@@ -3,7 +3,7 @@
  *
  * Created for Menlo School CS2
  *
- * @author: Ms. Namasivayam & Mr. Blick
+ * @author: Ms. Namasivayam, Mr. Blick, & Kate Little
  * @version: 2022-2023
  */
 
@@ -21,7 +21,7 @@ public class Student extends Person{
     }
 
     @Override
-    // To-string method
+    // To-string method prints firstName lastName — phoneNumber Grade: #
     public String toString(){
         return super.toString() + " Grade: " + grade;
     }

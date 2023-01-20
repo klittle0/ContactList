@@ -1,3 +1,11 @@
+/**
+ * A class that represents a Worker
+ *
+ * Created for Menlo School CS2
+ *
+ * @author: Kate Little
+ * @version: 2022-2023
+ */
 public class Worker extends Person{
     private String jobTitle;
 
@@ -12,7 +20,7 @@ public class Worker extends Person{
     }
 
     @Override
-    // To-string method
+    // To-string method prints firstName lastName — phoneNumber jobTitle
     public String toString(){
         return super.toString() + " " + jobTitle;
     }
